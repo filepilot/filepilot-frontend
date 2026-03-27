@@ -1,0 +1,277 @@
+.fp-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-primary);
+}
+
+.fp-header__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 64px;
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.fp-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.fp-header__logo-text {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 600;
+  color: #faf9f4;
+  letter-spacing: -0.3px;
+}
+
+/* ── Desktop nav ── */
+.fp-header__nav--desktop {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.fp-header__nav-link {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+  text-decoration: none;
+}
+.fp-header__nav-link:hover { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+.fp-header__nav-link--active { color: var(--text-primary); }
+
+/* ── Desktop actions ── */
+.fp-header__actions--desktop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* User info pill */
+.fp-header__user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fp-header__avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(251,249,245,0.12);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fp-header__avatar--large {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.fp-header__username {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.fp-header__role-badge {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--border-subtle);
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.fp-header__questions {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-primary);
+  padding: 8px 18px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 7px;
+  transition: border-color 0.15s;
+  text-decoration: none;
+}
+.fp-header__questions:hover { border-color: rgba(255,255,255,0.45); }
+
+.fp-header__cta {
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 20px;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.fp-header__cta:hover { opacity: 0.88; }
+
+.fp-header__cta--ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+}
+.fp-header__cta--ghost:hover { color: var(--text-primary); border-color: var(--border-color); opacity: 1; }
+
+/* ── Hamburger button ── */
+.fp-header__mobile-right {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.fp-header__burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 8px 6px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.fp-header__burger:hover { background: rgba(255,255,255,0.05); }
+
+.fp-header__burger span {
+  display: block;
+  height: 2px;
+  background: var(--text-secondary);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.2s;
+}
+
+.fp-header__burger--open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.fp-header__burger--open span:nth-child(2) {
+  opacity: 0;
+}
+.fp-header__burger--open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile dropdown menu ── */
+.fp-header__mobile-menu {
+  display: none;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 16px;
+  animation: menuSlideDown 0.2s ease-out;
+}
+
+@keyframes menuSlideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fp-header__mobile-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+}
+
+.fp-header__mobile-username {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.fp-header__mobile-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.fp-header__mobile-link {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+.fp-header__mobile-link:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+.fp-header__mobile-link--active { color: var(--text-primary); background: rgba(255,255,255,0.05); }
+.fp-header__mobile-link--danger { color: #f87171; }
+.fp-header__mobile-link--danger:hover { background: rgba(248,113,113,0.08); }
+
+.fp-header__mobile-actions {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Narrow desktop (800px) ── */
+@media (max-width: 800px) {
+  .fp-header__inner { padding: 0 24px; gap: 16px; }
+  .fp-header__username { display: none; }
+  .fp-header__questions { display: none; }
+}
+
+/* ── Mobile breakpoint ── */
+@media (max-width: 640px) {
+  .fp-header__inner {
+    padding: 0 16px;
+    height: 56px;
+    gap: 0;
+  }
+
+  .fp-header__logo-text { font-size: 18px; }
+
+  /* Hide desktop elements */
+  .fp-header__nav--desktop { display: none; }
+  .fp-header__actions--desktop { display: none; }
+
+  /* Show mobile elements */
+  .fp-header__mobile-right { display: flex; }
+  .fp-header__mobile-menu { display: block; }
+
+  .fp-header__avatar--mobile {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+}

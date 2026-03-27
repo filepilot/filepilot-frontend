@@ -1,0 +1,134 @@
+.fp-footer {
+  background: var(--bg-footer);
+  padding: 56px 0 40px;
+  margin-top: auto;
+}
+
+.fp-footer__inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: grid;
+  grid-template-columns: 180px repeat(6, 1fr);
+  gap: 32px;
+}
+
+.fp-footer__brand {
+  display: flex;
+  flex-direction: column;
+}
+
+.fp-footer__brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.fp-footer__logo-text {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 400;
+  color: #faf9f4;
+}
+
+.fp-footer__tagline {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.fp-footer__copy {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+
+.fp-footer__socials {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.fp-footer__social {
+  color: var(--text-dim);
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+}
+.fp-footer__social:hover { color: var(--text-primary); }
+
+.fp-footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.fp-footer__col-title {
+  font-size: 11px;
+  font-weight: 400;
+  color: #8c8d87;
+  margin-bottom: 4px;
+}
+
+.fp-footer__col a,
+.fp-footer__col span {
+  font-size: 11px;
+  font-weight: 400;
+  color: #e8e7e2;
+  line-height: 1;
+  padding: 3px 0;
+  display: block;
+}
+.fp-footer__col a:hover { color: var(--text-secondary); }
+
+/* ── Narrow desktop / tablet (≤ 900px):
+      logo top, link columns middle, brand-bottom last ── */
+@media (max-width: 900px) {
+  .fp-footer__inner {
+    grid-template-columns: 1fr 1fr;
+    padding: 0 24px;
+    gap: 32px;
+  }
+
+  /* Dissolve brand into grid so top/bottom can be placed independently */
+  .fp-footer__brand {
+    display: contents;
+  }
+
+  /* Logo + wordmark: full width, always first */
+  .fp-footer__brand-top {
+    grid-column: 1 / -1;
+    order: -1;
+  }
+  .fp-footer__brand-top .fp-footer__brand-row {
+    margin-bottom: 0;
+  }
+
+  /* Tagline / © / socials: full width, always last */
+  .fp-footer__brand-bottom {
+    grid-column: 1 / -1;
+    order: 99;
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+  }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .fp-footer { padding: 36px 0 32px; }
+
+  .fp-footer__inner {
+    grid-template-columns: 1fr 1fr;
+    padding: 0 20px;
+    gap: 24px;
+  }
+
+  /* brand already display:contents from 900px rule, just adjust spacing */
+  .fp-footer__brand-bottom {
+    padding-top: 12px;
+  }
+}
