@@ -54,8 +54,11 @@ export default function VersionDetailPage() {
   const [reviewComment, setReviewComment] = useState('');
   const [showDiff, setShowDiff] = useState(false);
 
+  const [deleting, setDeleting] = useState(false);
+
   const isReviewer = user?.role === 'REVIEWER' || user?.role === 'ADMIN';
   const isAuthor = user?.role === 'AUTHOR' || user?.role === 'ADMIN';
+  const isAdmin = user?.role === 'ADMIN';
   const canComment = isReviewer;
 
   useEffect(() => {
@@ -119,6 +122,19 @@ export default function VersionDetailPage() {
     }
   };
 
+  const handleDelete = async () => {
+    if (!window.confirm(`Delete version ${version.versionNumber}? This cannot be undone.`)) return;
+    setDeleting(true);
+    setError('');
+    try {
+      await api.delete(`/versions/${version.id}`);
+      navigate(`/documents/${slug}`);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to delete version.');
+      setDeleting(false);
+    }
+  };
+
   const handleExport = async (format) => {
     try {
       const response = await api.get(`/versions/${version.id}/export?format=${format}`, {
@@ -176,6 +192,11 @@ export default function VersionDetailPage() {
                 <button className="btn btn-secondary btn-sm" onClick={() => handleExport('pdf')}>
                   Export PDF
                 </button>
+                {isAdmin && (
+                  <button className="btn btn-danger btn-sm" onClick={handleDelete} disabled={deleting}>
+                    {deleting ? 'Deleting...' : 'Delete'}
+                  </button>
+                )}
               </div>
             </div>
 
