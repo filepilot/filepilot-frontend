@@ -183,9 +183,10 @@ export default function DocumentDetailPage() {
   const [compareFrom, setCompareFrom] = useState('');
   const [compareTo, setCompareTo] = useState('');
 
-  const canCreate = user?.role === 'AUTHOR' || user?.role === 'ADMIN';
   const isAdmin = user?.role === 'ADMIN';
   const isOwner = doc?.ownerUsername === user?.username;
+  // Author can create on a document only if they own it; admins can always create.
+  const canCreate = isAdmin || ((user?.role === 'AUTHOR') && isOwner);
 
   const isNumericId = /^\d+$/.test(slug);
   const docPath = isNumericId ? `/documents/${slug}` : `/documents/by-slug/${slug}`;
@@ -216,7 +217,7 @@ export default function DocumentDetailPage() {
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
-  }, [slug]);
+  }, [slug, docPath, versionsPath, isNumericId, navigate]);
 
   const refreshData = () => {
     setLoading(true);
