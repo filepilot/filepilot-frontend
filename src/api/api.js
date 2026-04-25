@@ -46,11 +46,15 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // Auto-retry once on transient errors (429, 500, 502, 503, 504, network errors)
+    // Auto-retry once on transient errors — only for GETs, since retrying writes
+    // (POST/PUT/DELETE) on a 5xx that already had a side effect can duplicate work.
+    // Never retry 429: the server is asking us to back off, retrying immediately
+    // makes the rate-limit picture worse.
     const config = error.config;
-    if (!config._retried) {
+    if (config && !config._retried) {
       const status = error.response?.status;
-      const isRetryable = !status || status === 429 || status >= 500;
+      const isGet = (config.method || 'get').toLowerCase() === 'get';
+      const isRetryable = isGet && (!status || status >= 500);
       if (isRetryable) {
         config._retried = true;
         await new Promise(r => setTimeout(r, 500));

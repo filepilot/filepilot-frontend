@@ -250,34 +250,46 @@ export default function VersionDetailPage() {
               </div>
             )}
 
-            {version.status === 'PENDING_REVIEW' && isReviewer && (
-              <div className="vdet-actions">
-                <h3 className="vdet-actions-label">Review</h3>
-                <textarea
-                  className="textarea-field"
-                  placeholder="Optional review comment..."
-                  value={reviewComment}
-                  onChange={e => setReviewComment(e.target.value)}
-                  style={{ minHeight: 80, marginBottom: 12 }}
-                />
-                <div className="vdet-review-btns">
-                  <button
-                    className="btn btn-success"
-                    onClick={() => handleAction('approve')}
-                    disabled={!!actionLoading}
-                  >
-                    {actionLoading === 'approve' ? 'Approving...' : '✓ Approve'}
-                  </button>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleAction('reject')}
-                    disabled={!!actionLoading}
-                  >
-                    {actionLoading === 'reject' ? 'Rejecting...' : '✕ Reject'}
-                  </button>
+            {(() => {
+              const canApprove = version.status === 'PENDING_REVIEW' && isReviewer;
+              const canReject =
+                (version.status === 'PENDING_REVIEW' && isReviewer) ||
+                (isAdmin && (version.status === 'DRAFT' || version.status === 'APPROVED'));
+              if (!canApprove && !canReject) return null;
+              const rejectLabel = version.status === 'APPROVED' ? '✕ Revoke Approval' : '✕ Reject';
+              return (
+                <div className="vdet-actions">
+                  <h3 className="vdet-actions-label">Review</h3>
+                  <textarea
+                    className="textarea-field"
+                    placeholder="Optional review comment..."
+                    value={reviewComment}
+                    onChange={e => setReviewComment(e.target.value)}
+                    style={{ minHeight: 80, marginBottom: 12 }}
+                  />
+                  <div className="vdet-review-btns">
+                    {canApprove && (
+                      <button
+                        className="btn btn-success"
+                        onClick={() => handleAction('approve')}
+                        disabled={!!actionLoading}
+                      >
+                        {actionLoading === 'approve' ? 'Approving...' : '✓ Approve'}
+                      </button>
+                    )}
+                    {canReject && (
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleAction('reject')}
+                        disabled={!!actionLoading}
+                      >
+                        {actionLoading === 'reject' ? 'Rejecting...' : rejectLabel}
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            )}
+              );
+            })()}
           </div>
 
           {/* Comments sidebar */}
