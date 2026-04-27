@@ -20,4 +20,10 @@ const devCspPlugin = (mode) => ({
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [react(), devCspPlugin(mode)],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/__tests__/setup.js'],
+    css: false,
+  },
 }))
