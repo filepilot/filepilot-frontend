@@ -33,10 +33,10 @@
 }
 
 .fp-footer__tagline {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 700;
   color: var(--text-dim);
-  margin-bottom: 4px;
+  margin-bottom: 1px;
   letter-spacing: 0.02em;
 }
 
