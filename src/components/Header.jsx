@@ -22,10 +22,16 @@ export default function Header() {
 
   const isActive = (path) => location.pathname === path || location.pathname.startsWith(path + '/');
 
+  const showLoggedOutBurger = !user && location.pathname === '/';
+
   return (
     <header className="fp-header">
       <div className="fp-header__inner">
-        <Link to={user ? '/dashboard' : '/'} className="fp-header__brand">
+        <Link
+          to={user ? '/dashboard' : '/'}
+          className="fp-header__brand"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
           <Logo size={28} />
           <span className="fp-header__logo-text">Filepilot</span>
         </Link>
@@ -76,26 +82,28 @@ export default function Header() {
         </div>
 
         {/* Mobile: avatar + hamburger */}
-        <div className="fp-header__mobile-right">
-          {user && (
-            <div className="fp-header__avatar fp-header__avatar--mobile">
-              {user.username?.[0]?.toUpperCase() || '?'}
-            </div>
-          )}
-          <button
-            className={`fp-header__burger ${menuOpen ? 'fp-header__burger--open' : ''}`}
-            onClick={() => setMenuOpen(v => !v)}
-            aria-label="Toggle menu"
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
+        {(user || showLoggedOutBurger) && (
+          <div className="fp-header__mobile-right">
+            {user && (
+              <div className="fp-header__avatar fp-header__avatar--mobile">
+                {user.username?.[0]?.toUpperCase() || '?'}
+              </div>
+            )}
+            <button
+              className={`fp-header__burger ${menuOpen ? 'fp-header__burger--open' : ''}`}
+              onClick={() => setMenuOpen(v => !v)}
+              aria-label="Toggle menu"
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Mobile dropdown */}
-      {menuOpen && (
+      {menuOpen && (user || showLoggedOutBurger) && (
         <div className="fp-header__mobile-menu">
           {user ? (
             <>
@@ -137,11 +145,9 @@ export default function Header() {
             </>
           ) : (
             <nav className="fp-header__mobile-nav">
-              {location.pathname === '/' && (
-                <a href="#faq" className="fp-header__mobile-link">Questions</a>
-              )}
-              <Link to="/register" className="fp-header__mobile-link">Try Filepilot</Link>
-              <Link to="/" className="fp-header__mobile-link">Log in</Link>
+              <a href="#faq" className="fp-header__mobile-link" onClick={() => setMenuOpen(false)}>
+                Questions
+              </a>
             </nav>
           )}
         </div>

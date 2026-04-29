@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/api';
 import Header from '../components/Header';
@@ -73,6 +73,9 @@ export default function LandingPage() {
                   {loading ? '...' : 'login'}
                 </button>
               </form>
+              <p className="landing__signup-prompt">
+                New here? <Link to="/register" className="landing__signup-link">Create an account</Link>
+              </p>
               <p className="landing__privacy">
                 By logging in, you acknowledge Filepilot's Privacy Policy.
               </p>

@@ -122,6 +122,21 @@
   line-height: 1.5;
 }
 
+.landing__signup-prompt {
+  display: none;
+  font-size: 13px;
+  color: #c0c0b6;
+  margin-top: 14px;
+  text-align: center;
+}
+
+.landing__signup-link {
+  color: #faf9f4;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.landing__signup-link:hover { opacity: 0.85; }
+
 /* Right: demo panel */
 .landing__hero-right {
   height: 615px;
@@ -214,6 +229,7 @@
   .landing__hero { padding: 28px 20px 48px; gap: 28px; }
   .landing__headline { font-size: 34px; }
   .landing__subheading { font-size: 15px; margin-bottom: 20px; }
+  .landing__signup-prompt { display: block; }
   /* Form narrower to match headline */
   .landing__hero-left { justify-content: center; }
   .landing__left-block { max-width: 340px; margin: 0 auto; }
